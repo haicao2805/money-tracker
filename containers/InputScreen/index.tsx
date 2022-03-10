@@ -9,16 +9,16 @@ import NavigationBar from "../../components/NavigationBar";
 interface InputScreenProps {}
 
 const InputScreen: FC<InputScreenProps> = () => {
-  const currentActiveScreen = useSelector((state: RootState) => state.activeScreenReducer.value);
-  const dispatch = useDispatch();
+    const currentActiveScreen = useSelector((state: RootState) => state.activeScreenReducer.value);
+    const dispatch = useDispatch();
 
-  return (
-    <Box position={"relative"} flex={1} bg={"amber.100"}>
-      <Box position={"absolute"} bottom={0}>
-        <NavigationBar />
-      </Box>
-    </Box>
-  );
+    return (
+        <Box position={"relative"} flex={1} bg={"amber.100"}>
+            <Box position={"absolute"} bottom={0}>
+                <NavigationBar />
+            </Box>
+        </Box>
+    );
 };
 
 export default InputScreen;

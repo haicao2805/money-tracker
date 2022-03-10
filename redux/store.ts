@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { activeScreenReducer } from "./slices/activeScreenSlice";
 
 export const store = configureStore({
-  reducer: {
-    activeScreenReducer: activeScreenReducer,
-  },
+    reducer: {
+        activeScreenReducer: activeScreenReducer,
+    },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
