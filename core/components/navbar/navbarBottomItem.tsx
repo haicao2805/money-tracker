@@ -16,13 +16,15 @@ export const NavbarBottomItem: React.FC<NavbarBottomItemProps> = ({ label, value
     return (
         <Button
             alignItems={"center"}
-            bg={"coolGray.200"}
-            _pressed={{ bg: "coolGray.200" }}
+            bg={"coolGray.100"}
+            _pressed={{ bg: "coolGray.100" }}
             onPress={() => setActiveScreen(value)}
         >
             <Box alignItems={"center"}>
-                <Icon as={IconGroup} name={iconName} color={activeScreen === value ? "orange.300" : "black"} />
-                <Text color={activeScreen === value ? "orange.300" : "black"}>{label}</Text>
+                <Icon as={IconGroup} name={iconName} color={activeScreen === value ? "orange.500" : "black"} />
+                <Text color={activeScreen === value ? "orange.500" : "black"} fontSize={"xs"}>
+                    {label}
+                </Text>
             </Box>
         </Button>
     );
