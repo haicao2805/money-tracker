@@ -2,6 +2,7 @@ import { Icon as IconProps } from "@expo/vector-icons/build/createIconSet";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon, Text } from "native-base";
 import React, { FC } from "react";
+import { Colors } from "../../constants";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,13 @@ export interface TabItemProps {
 
 export const BottomTab: FC<BottomTabProps> = ({ tabListConfig }) => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {
+                    backgroundColor: Colors.TAB_BAR_BACKGROUND,
+                },
+            }}
+        >
             {tabListConfig.map((item, index) => (
                 <Tab.Screen
                     key={index}
@@ -29,13 +36,15 @@ export const BottomTab: FC<BottomTabProps> = ({ tabListConfig }) => {
                     options={{
                         headerShown: item.showHeader,
                         tabBarLabel: (props) => (
-                            <Text color={props.focused ? "orange.500" : "black"}>{item.label}</Text>
+                            <Text color={props.focused ? Colors.TAB_ITEM_ACTIVE : Colors.TAB_ITEM_INACTIVE}>
+                                {item.label}
+                            </Text>
                         ),
                         tabBarIcon: (props) => (
                             <Icon
                                 as={item.iconType}
                                 name={item.iconName}
-                                color={props.focused ? "orange.500" : "black"}
+                                color={props.focused ? Colors.TAB_ITEM_ACTIVE : Colors.TAB_ITEM_INACTIVE}
                             />
                         ),
                     }}
