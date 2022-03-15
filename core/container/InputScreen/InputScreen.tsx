@@ -47,16 +47,16 @@ const categoryList: Category[] = [
         iconColor: "#047857",
     },
     {
-        label: "Shopping",
-        iconName: "cart-outline",
-        iconType: Ionicons,
-        iconColor: "#004282",
-    },
-    {
         label: "Contact fee",
         iconName: "phone-portrait-outline",
         iconType: Ionicons,
         iconColor: "#f9a8d4",
+    },
+    {
+        label: "Shopping",
+        iconName: "cart-outline",
+        iconType: Ionicons,
+        iconColor: "#004282",
     },
 ];
 
@@ -64,9 +64,11 @@ interface InputScreenProps {}
 
 export const InputScreen: React.FC<InputScreenProps> = () => {
     const [toggleInputType, setToggleInputType] = React.useState<InputType>(InputType.EXPENSE);
-    const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
     const [showDatePicker, setShowDatePicker] = React.useState(false);
+    const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
+    const [note, setNote] = React.useState<string>(null);
     const [amount, setAmount] = React.useState<number>(null);
+    const [category, setCategory] = React.useState<string>(null);
 
     const onChangeDate = (event: Event, selectedDate: Date) => {
         setShowDatePicker(false);
@@ -77,6 +79,13 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
 
     const showDatePickerHandler = () => {
         setShowDatePicker(true);
+    };
+
+    const submitHandler = () => {
+        console.log("Date:", currentDate);
+        console.log("Note: ", note);
+        console.log("Amount: ", amount);
+        console.log("Category: ", category);
     };
 
     return (
@@ -155,7 +164,15 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
                     <Text w={"25%"} fontWeight={"semibold"} fontSize={"lg"}>
                         Note
                     </Text>
-                    <Input w={"65%"} placeholder="Enter your note" borderWidth={0} fontSize={"lg"} fontWeight="light" />
+                    <Input
+                        value={note}
+                        onChangeText={(e) => setNote(e)}
+                        w={"65%"}
+                        placeholder="Enter your note"
+                        borderWidth={0}
+                        fontSize={"lg"}
+                        fontWeight="light"
+                    />
                 </InputContainer>
                 <Divider />
                 <InputContainer>
@@ -182,28 +199,22 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
                 <Text fontWeight={"semibold"} fontSize={"lg"} px={4} py={4}>
                     Category
                 </Text>
-                <Box justifyContent={"center"} alignItems={"center"}>
-                    <ScrollView w={"90%"} h={"70%"} mb={2}>
-                        <Box justifyContent={"center"} alignItems={"center"} flexDirection={"row"} flexWrap={"wrap"}>
-                            <CategoryList list={categoryList} />
-                            <Button
-                                h={"30%"}
-                                w={"30%"}
-                                bg={Colors.APP_BACKGROUND}
-                                borderColor={Colors.SECONDARY}
-                                borderWidth={"2"}
-                                _pressed={{ bg: Colors.APP_BACKGROUND }}
-                            >
-                                <Text fontSize={"sm"}>Edit</Text>
-                            </Button>
-                        </Box>
-                    </ScrollView>
+
+                <Box h={"75%"} justifyContent={"center"} alignItems={"center"}>
+                    <CategoryList list={categoryList} chooseCategoryHandler={setCategory} />
                 </Box>
                 <Divider />
             </Box>
 
             <Box justifyContent={"center"} alignItems={"center"}>
-                <Button bg={Colors.PRIMARY} w={"60%"} borderRadius={12} mb={2} _pressed={{ bg: Colors.PRIMARY }}>
+                <Button
+                    bg={Colors.PRIMARY}
+                    w={"60%"}
+                    borderRadius={12}
+                    mb={2}
+                    _pressed={{ bg: Colors.PRIMARY }}
+                    onPress={submitHandler}
+                >
                     <Text fontWeight={"semibold"} color={"white"} fontSize={"xl"} textAlign={"center"}>
                         Submit
                     </Text>
