@@ -1,6 +1,6 @@
-import { EvilIcons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
-import { Box, Button, Divider, Icon, Input, Text } from "native-base";
+import { Box, Button, Divider, FlatList, Icon, Input, ScrollView, Text } from "native-base";
 import * as React from "react";
 import { Colors } from "../../constants";
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
@@ -8,12 +8,59 @@ import ToggleButton from "./ToggleButton";
 import { TextInput } from "react-native";
 import { styles } from "./style";
 import InputContainer from "./InputContainer";
-interface InputScreenProps {}
+import CategoryList, { Category } from "./CategoryList";
 
 enum InputType {
     EXPENSE = "expense",
     INCOME = "income",
 }
+
+const categoryList: Category[] = [
+    {
+        label: "Food",
+        iconName: "fast-food-outline",
+        iconType: Ionicons,
+        iconColor: "#c084fc",
+    },
+    {
+        label: "Transport",
+        iconName: "bus-outline",
+        iconType: Ionicons,
+        iconColor: "#eab308",
+    },
+    {
+        label: "House bill",
+        iconName: "ios-home-outline",
+        iconType: Ionicons,
+        iconColor: "#ef4444",
+    },
+    {
+        label: "Water bill",
+        iconName: "water-outline",
+        iconType: Ionicons,
+        iconColor: "#7cc2ff",
+    },
+    {
+        label: "Electric bill",
+        iconName: "flash-outline",
+        iconType: Ionicons,
+        iconColor: "#047857",
+    },
+    {
+        label: "Shopping",
+        iconName: "cart-outline",
+        iconType: Ionicons,
+        iconColor: "#004282",
+    },
+    {
+        label: "Contact fee",
+        iconName: "phone-portrait-outline",
+        iconType: Ionicons,
+        iconColor: "#f9a8d4",
+    },
+];
+
+interface InputScreenProps {}
 
 export const InputScreen: React.FC<InputScreenProps> = () => {
     const [toggleInputType, setToggleInputType] = React.useState<InputType>(InputType.EXPENSE);
@@ -33,7 +80,7 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
     };
 
     return (
-        <Box flex={1}>
+        <Box flex={1} bg={Colors.APP_BACKGROUND}>
             <Box
                 height={"10%"}
                 bg={Colors.HEADER_BACKGROUND}
@@ -129,6 +176,43 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
                     </Text>
                 </InputContainer>
                 <Divider />
+            </Box>
+
+            <Box h={"45%"}>
+                <Text fontWeight={"semibold"} fontSize={"lg"} px={4} py={4}>
+                    Category
+                </Text>
+                <Box justifyContent={"center"} alignItems={"center"}>
+                    <ScrollView w={"90%"} h={"70%"} mb={2}>
+                        <Box justifyContent={"center"} alignItems={"center"} flexDirection={"row"} flexWrap={"wrap"}>
+                            <CategoryList list={categoryList} />
+                            <Button
+                                h={"30%"}
+                                w={"30%"}
+                                bg={Colors.APP_BACKGROUND}
+                                borderColor={Colors.SECONDARY}
+                                borderWidth={"2"}
+                                _pressed={{ bg: Colors.APP_BACKGROUND }}
+                            >
+                                <Text fontSize={"sm"}>Edit</Text>
+                            </Button>
+                        </Box>
+                    </ScrollView>
+                </Box>
+                <Divider />
+            </Box>
+
+            <Box justifyContent={"center"} alignItems={"center"}>
+                <Button bg={Colors.PRIMARY} w={"60%"} borderRadius={12} mb={2} _pressed={{ bg: Colors.PRIMARY }}>
+                    <Text fontWeight={"semibold"} color={"white"} fontSize={"xl"} textAlign={"center"}>
+                        Submit
+                    </Text>
+                </Button>
+                <Button bg={Colors.THIRD} w={"60%"} borderRadius={12} _pressed={{ bg: Colors.THIRD }}>
+                    <Text fontWeight={"semibold"} color={"white"} fontSize={"xl"}>
+                        Reset
+                    </Text>
+                </Button>
             </Box>
         </Box>
     );
