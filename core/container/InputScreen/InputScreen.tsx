@@ -1,4 +1,4 @@
-import { AntDesign, EvilIcons, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
 import { Box, Button, Divider, FlatList, Icon, Input, ScrollView, Text } from "native-base";
 import * as React from "react";
@@ -7,7 +7,6 @@ import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 import ToggleButton from "./ToggleButton";
 import { TextInput } from "react-native";
 import { styles } from "./style";
-import InputContainer from "./InputContainer";
 import CategoryList, { Category } from "./CategoryList";
 
 enum InputType {
@@ -121,7 +120,14 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
             </Box>
 
             <Box>
-                <InputContainer>
+                <Box
+                    flexDirection={"row"}
+                    justifyContent={"flex-start"}
+                    alignItems={"center"}
+                    width={"full"}
+                    py={1}
+                    px={4}
+                >
                     <Text w={"15%"} fontWeight={"semibold"} fontSize={"lg"}>
                         Date
                     </Text>
@@ -158,9 +164,16 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
                         />
                     </Box>
                     {showDatePicker && <DateTimePicker value={currentDate} mode={"date"} onChange={onChangeDate} />}
-                </InputContainer>
+                </Box>
                 <Divider />
-                <InputContainer>
+                <Box
+                    flexDirection={"row"}
+                    justifyContent={"flex-start"}
+                    alignItems={"center"}
+                    width={"full"}
+                    py={1}
+                    px={4}
+                >
                     <Text w={"25%"} fontWeight={"semibold"} fontSize={"lg"}>
                         Note
                     </Text>
@@ -173,9 +186,16 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
                         fontSize={"lg"}
                         fontWeight="light"
                     />
-                </InputContainer>
+                </Box>
                 <Divider />
-                <InputContainer>
+                <Box
+                    flexDirection={"row"}
+                    justifyContent={"flex-start"}
+                    alignItems={"center"}
+                    width={"full"}
+                    py={1}
+                    px={4}
+                >
                     <Text w={"25%"} fontWeight={"semibold"} fontSize={"lg"}>
                         {toggleInputType === InputType.EXPENSE ? "Expense" : "Income"}
                     </Text>
@@ -191,14 +211,19 @@ export const InputScreen: React.FC<InputScreenProps> = () => {
                     <Text w={"10%"} fontWeight={"semibold"} fontSize={"lg"} textAlign={"center"}>
                         đ
                     </Text>
-                </InputContainer>
+                </Box>
                 <Divider />
             </Box>
 
             <Box h={"45%"}>
-                <Text fontWeight={"semibold"} fontSize={"lg"} px={4} py={4}>
-                    Category
-                </Text>
+                <Box flexDirection={"row"} justifyContent={"space-between"}>
+                    <Text fontWeight={"semibold"} fontSize={"lg"} px={4} py={4}>
+                        Category
+                    </Text>
+                    <Button bg={Colors.APP_BACKGROUND} _pressed={{ bg: Colors.APP_BACKGROUND }} pr={8}>
+                        <Icon as={Feather} name={"edit"} size={7} />
+                    </Button>
+                </Box>
 
                 <Box h={"75%"} justifyContent={"center"} alignItems={"center"}>
                     <CategoryList list={categoryList} chooseCategoryHandler={setCategory} />
